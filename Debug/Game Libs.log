@@ -1,0 +1,27 @@
+﻿Build started 07/07/2014 00:28:14.
+     1>Project "c:\Users\Asus\documents\visual studio 2013\Projects\Game Libs\Game Libs\Game Libs.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt TestGame.cpp
+         TestGame.cpp
+     1>c:\users\asus\documents\visual studio 2013\projects\game libs\game libs\maths.h(7): warning C4200: nonstandard extension used : zero-sized array in struct/union
+                 Cannot generate copy-ctor or copy-assignment operator when UDT contains a zero-sized array
+     1>c:\users\asus\documents\visual studio 2013\projects\game libs\game libs\shapes.h(36): warning C4099: 'Circle' : type name first seen using 'class' now seen using 'struct'
+                 c:\users\asus\documents\visual studio 2013\projects\game libs\game libs\shapes.h(12) : see declaration of 'Circle'
+     1>c:\users\asus\documents\visual studio 2013\projects\game libs\game libs\testgame.cpp(5): warning C4305: 'argument' : truncation from 'double' to 'float'
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"c:\users\asus\documents\visual studio 2013\Projects\Game Libs\Debug\Game Libs.exe" /INCREMENTAL /NOLOGO SDL2.lib SDL2main.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"c:\users\asus\documents\visual studio 2013\Projects\Game Libs\Debug\Game Libs.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"c:\users\asus\documents\visual studio 2013\Projects\Game Libs\Debug\Game Libs.lib" /MACHINE:X86 Debug\Colour.obj
+         Debug\Game.obj
+         Debug\Main.obj
+         Debug\Maths.obj
+         Debug\Player.obj
+         Debug\Shapes.obj
+         Debug\TestGame.obj
+         Debug\Tileset.obj
+         Debug\Time.obj
+         Debug\Vector.obj
+         Game Libs.vcxproj -> c:\users\asus\documents\visual studio 2013\Projects\Game Libs\Debug\Game Libs.exe
+     1>Done Building Project "c:\Users\Asus\documents\visual studio 2013\Projects\Game Libs\Game Libs\Game Libs.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:00.73
