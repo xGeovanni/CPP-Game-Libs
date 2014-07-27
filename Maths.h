@@ -4,9 +4,11 @@
 
 struct Polynomial{
 	unsigned int nTerms;
-	double terms[];
+	double terms[4];
 
-	Polynomial(double _terms[]);
+	Polynomial();
+
+	Polynomial(double a, double b, double c, double d);
 
 	double operator()(double x);
 };

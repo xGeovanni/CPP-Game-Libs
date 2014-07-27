@@ -9,21 +9,33 @@ Game::Game(int width, int height, char *title, Uint32 flags, bool _threadedRende
 	startedRenderThread = false;
 	pauseRender = false;
 
-	keyStates = 0;
-
 	SDL_Init(SDL_INIT_EVERYTHING);
 
 	window = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, flags);
-	screen = SDL_GetWindowSurface(window);
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+	displayMode = new SDL_DisplayMode();
+	
+	if (SDL_GetWindowDisplayMode(window, displayMode) != 0){
+		std::cerr << SDL_GetError();
+		return;
+	}
 
-	screenRect = Rect(0, 0, width, height);
+	screenRect = Rect(0, 0, displayMode->w, displayMode->h);
 
 	clock = Clock(TPS);
 	renderClock = Clock(FPS);
 	DTThreshold = dt_threshold;
 
 	threadedRender = _threadedRender;
+
+	state = GameStates::intro;
+}
+
+Game::~Game(){
+	SDL_DestroyRenderer(renderer);
+	SDL_DestroyWindow(window);
+
+	delete displayMode;
 }
 
 void Game::update(){
@@ -34,19 +46,19 @@ void Game::render(){
 
 }
 
-void Game::handleKeyStates(const Uint8 *keyStates){
+void Game::handleEvents(const Uint8 *keyStates, SDL_Event* e){
 
 }
 
 void Game::handleInput(){
-	SDL_PollEvent(&WindowClosed);
+	SDL_PollEvent(&e);
 
-	if (WindowClosed.type == SDL_QUIT){
+	if (e.type == SDL_QUIT){
 		quit();
 	}
 
 	keyStates = SDL_GetKeyboardState(NULL);
-	handleKeyStates(keyStates);
+	handleEvents(keyStates, &e);
 }
 
 void Game::updateDisplay(){
@@ -54,7 +66,7 @@ void Game::updateDisplay(){
 }
 
 void Game::clearDisplay(){
-	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+	SDL_SetRenderDrawColor(renderer, fillColour.r, fillColour.g, fillColour.b, fillColour.a);
 	SDL_RenderClear(renderer);
 }
 
@@ -87,12 +99,12 @@ void Game::run(){
 
 		if (deltaTime > DTThreshold){
 			/* A large deltaTime value indicates that the window was
-				* being resized or dragged between now and the last
-				* frame.This large dt value would, if left alone,
-				* cause all sorts of problems for our game, such as
-				* objects clipping through each other as their movement
-				* is scaled by deltaTime. We thus skip this frame.
-				*/
+			* being resized or dragged between now and the last
+			* frame.This large dt value would, if left alone,
+			* cause all sorts of problems for our game, such as
+			* objects clipping through each other as their movement
+			* is scaled by deltaTime. We thus skip this frame.
+			*/
 
 			continue;
 		}
@@ -106,7 +118,6 @@ void Game::run(){
 			if (!startedRenderThread){
 				renderThread = beginThreadedRendering();
 			}
-
 		}
 		else{
 			frame();

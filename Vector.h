@@ -14,6 +14,10 @@ struct Vector2{
 
 	static Vector2 fromRadians(float rads);
 
+	static Vector2 lerp(Vector2 a, Vector2 b, float t);
+
+	static Vector2 tween(Vector2 a, Vector2 b, Polynomial p, float t);
+
 	float magnitude();
 
 	float magnitudeSquared();
@@ -39,12 +43,6 @@ struct Vector2{
 	void scale(int m);
 
 	void scale(float m);
-
-	void lerp(Vector2 other, float t);
-
-	void Vector2::tween(Vector2 other, float polynomial[], float t);
-
-	void Vector2::tween(Vector2 other, Polynomial p, float t);
 
 	void rotate(float rads);
 

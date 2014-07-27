@@ -16,7 +16,4 @@ struct TestGame : Game{
 	void render();
 
 	void handleKeyStates(const Uint8 *keyStates);
-
-	Circle *c = new Circle[30];
-	Vector2 v;
 };

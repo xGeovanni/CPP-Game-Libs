@@ -4,14 +4,29 @@
 #include <vector>
 #include "SDL.h"
 
+struct Circle;
+class Rect;
+
 SDL_Point makePoint(int x, int y);
 
-class Shape{
+enum ShapeType{
+	circle,
+	rect,
 };
 
-class Circle;
+class Shape{
 
-class Rect : Shape, private SDL_Rect{
+public:
+	Vector2 pos;
+	ShapeType type;
+
+	bool collide(Shape *const other);
+	virtual bool collideRect(Rect *const other);
+	virtual bool collideCircle(Circle *const other);
+	virtual void draw(SDL_Renderer *renderer, bool fill);
+};
+
+class Rect : public Shape, public SDL_Rect{
 
 	void updateDrawValues();
 
@@ -31,19 +46,37 @@ class Rect : Shape, private SDL_Rect{
 		bool collideRect(Rect *const other);
 
 		bool collideCircle(Circle *const other);
+
+		Rect copy();
+
+		Shape asShape();
+
+		bool operator==(Rect other);
+
+		bool operator!=(Rect other);
 };
 
-struct Circle : Shape{
-	Vector2 centre;
+struct Circle : public Shape{
+	Vector2 pos;
 	float radius;
 
 	Circle();
 
 	Circle(Vector2 _centre, float _radius);
 
+	~Circle();
+
 	bool collideCircle(Circle *const other);
 
 	bool collideRect(Rect *const other);
 
 	void draw(SDL_Renderer *renderer, bool fill);
+
+	Circle copy();
+
+	Shape asShape();
+
+	bool operator==(Circle other);
+
+	bool operator!=(Circle other);
 };

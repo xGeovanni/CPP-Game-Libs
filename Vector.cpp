@@ -18,6 +18,15 @@ Vector2 Vector2::fromRadians(float rads){
 	return Vector2(-cos(rads), sin(rads));
 }
 
+Vector2 Vector2::lerp(Vector2 a, Vector2 b, float t){
+	return (a + (b - a) * t);
+}
+
+Vector2 Vector2::tween(Vector2 a, Vector2 b, Polynomial p, float t){
+	float pt = p(t);
+	return (a + (b - a) * pt);
+}
+
 float Vector2::magnitude(){
 	return sqrt(magnitudeSquared());
 }
@@ -103,26 +112,6 @@ void Vector2::scale(float m){
 
 	x *= ratio;
 	y *= ratio;
-}
-
-void Vector2::lerp(Vector2 other, float t){
-	*this += other * t;
-}
-
-void Vector2::tween(Vector2 other, float polynomial[], float t){
-	int nTerms = sizeof(polynomial) / sizeof(float);
-
-	float y = 0;
-
-	for (int i = nTerms - 1; i >= 0; i--){
-		y += polynomial[i] * powf(t, i);
-	}
-
-	*this += other * (float) y;
-}
-
-void Vector2::tween(Vector2 other, Polynomial p, float t){
-	*this += other * (float) p(t);
 }
 
 void Vector2::rotate(float rads){

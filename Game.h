@@ -2,12 +2,14 @@
 
 #include "Time.h"
 #include "Shapes.h"
+#include "Colour.h"
 #include <thread>
+#include <iostream>
 
 struct Game{
 	SDL_Window *window;
-	SDL_Surface *screen;
 	SDL_Renderer *renderer;
+	SDL_DisplayMode* displayMode;
 
 	Rect screenRect;
 
@@ -19,21 +21,34 @@ struct Game{
 	float DTThreshold;
 	Clock clock;
 
+	enum GameStates{
+		intro,
+		menu,
+		game,
+		editor,
+	};
+
+	GameStates state;
+
 	std::thread renderThread;
 	Clock renderClock;
 	bool threadedRender;
 	bool startedRenderThread;
 	bool pauseRender;
 
-	SDL_Event WindowClosed;
+	Colour fillColour; 
 
-	Game(int width, int height, char *title, Uint32 flags, bool _threadedRender=false, int TPS=NULL, int FPS=NULL, float dt_threshold=0.2);
+	SDL_Event e;
 
-	virtual void update() = 0;
+	Game(int width, int height, char *title, Uint32 flags, bool _threadedRender = false, int TPS = NULL, int FPS = NULL, float dt_threshold = 0.2);
 
-	virtual void render() = 0;
+	~Game();
 
-	virtual void handleKeyStates(const Uint8 *keyStates);
+	virtual void update();
+
+	virtual void render();
+
+	virtual void handleEvents(const Uint8* keyStates, SDL_Event* e);
 
 	void handleInput();
 

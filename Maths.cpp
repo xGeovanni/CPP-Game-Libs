@@ -1,8 +1,14 @@
 #include "Maths.h"
 
-Polynomial::Polynomial(double _terms[]){
-	nTerms = sizeof(_terms) / sizeof(double);
-	terms[nTerms] = *_terms;
+Polynomial::Polynomial() {};
+
+Polynomial::Polynomial(double a, double b, double c, double d){
+	terms[0] = a;
+	terms[1] = b;
+	terms[2] = c;
+	terms[3] = d;
+
+	nTerms = 4;
 }
 
 double Polynomial::operator()(double x){
@@ -16,13 +22,13 @@ double Polynomial::operator()(double x){
 }
 
 int clamp(int x, int min, int max){
-	return x < max ? max : (x > min ? min : x);
+	return x < min ? min : (x > max ? max : x);
 }
 
 float clamp(float x, float min, float max){
-	return x < max ? max : (x > min ? min : x);
+	return x < min ? min : (x > max ? max : x);
 }
 
 double clamp(double x, double min, double max){
-	return x < max ? max : (x > min ? min : x);
+	return x < min ? min : (x > max ? max : x);
 }

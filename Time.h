@@ -21,4 +21,6 @@ class Clock{
 		Clock(int tps=NULL);
 
 		float tick();
+
+		void setTPS(int tps);
 };

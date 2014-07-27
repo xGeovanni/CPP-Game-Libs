@@ -42,3 +42,8 @@ float Clock::tick(){
 
 	return deltaTime;
 };
+
+void Clock::setTPS(int tps){
+	TPS = tps;
+	desiredDT = 1000 / tps;
+}
